@@ -1,0 +1,281 @@
+#:import Factory kivy.factory.Factory
+<MyPopup@Popup>:
+    auto_dismiss: True
+    size_hint:0.5, 0.5
+    BoxLayout:
+        size_hint:0.5, 0.5
+
+        Label:
+            text:'atata'
+
+
+WindowManager:
+
+	Main_Window:
+	Add_Word:
+	Testing:
+	Dictionary:
+
+<Main_Window>:
+	name: 'main'
+
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+	
+	BoxLayout:
+
+
+
+        orientation : 'vertical'
+		size: root.width, root.height
+
+
+	    BoxLayout:
+
+	        canvas.before:
+                Color:
+
+                    rgba: 135/255, 107/255, 97/255, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+
+	        size_hint_y: 0.1
+	        orientation: "vertical"
+	        padding:10
+
+	        MenuBar:
+	            id: menu_bar
+	        Label:
+	            text: ""
+
+
+	
+		BoxLayout:
+            padding:20
+		    orientation : 'vertical'
+            size_hint_y: 0.315
+            Button:
+                id: ADDw
+                text: 'Add word'
+                size_hint_x: 0.6
+                size_hint_y: 0.2
+                pos_hint: {'x': 0.2}
+                font_size: 64
+
+                on_release:
+                    app.root.current = 'add_word'
+                    root.manager.transition.direction ='right'
+		BoxLayout:
+		    padding:20
+		    orientation : 'vertical'
+            size_hint_y: 0.315
+            Button:
+                id: 'TESTT'
+                text: 'Testing'
+                size_hint_x: 0.6
+                size_hint_y: 0.2
+                size_hint_y_maximum:0.2
+                pos_hint: {'x': 0.2}
+                font_size: 64
+                on_release:
+                    root.prepare()
+
+                    root.manager.transition.direction = 'left'
+
+        BoxLayout:
+            padding:20
+		    orientation : 'vertical'
+            size_hint_y: 0.315
+
+            Button:
+                text: 'Dictionary'
+                font_size: 64
+                size_hint_x: 0.6
+                size_hint_y: 0.2
+                pos_hint: {'x': 0.2}
+                on_release:
+                    app.root.current = 'dict'
+                    root.manager.transition.direction = 'left'
+
+<MenuBar@BoxLayout>:
+    size_hint_y: None
+    height: 30
+
+
+    Button:
+        text: "options"
+        size_hint_x: None
+        width: 100
+        on_release:
+
+
+
+
+<Add_Word>:
+	name: 'add_word'
+	
+	BoxLayout:
+		orientation : 'vertical'
+		size: root.width, root.height
+
+		Label:
+			text: "Enter english word"
+			size_hint: (1, 0.1)
+
+
+		TextInput:
+			id: ENG_WORD
+			multiline: False
+			size_hint: (1, 0.2)
+			text_size: 64
+			input_type: "number"
+
+		Label:
+			text: "Translation"
+			size_hint: (1, 0.1)
+			
+		TextInput:
+			id: RUS_WORD
+			multiline: False
+			size_hint: (1, 0.2)
+			text_size: 64
+			input_type: "number"
+
+			
+		Button:
+			text: 'enter'
+			font_size: 64
+			on_release: root.add_to_base()
+																			
+		Button:
+			text: 'go back'
+			font_size: 64
+			on_release: 
+				app.root.current = 'main'
+				root.manager.transition.direction = 'left'
+		
+<Testing>:
+	name: 'test'
+	id: TEST
+
+	BoxLayout:
+		orientation : 'vertical'
+		size: root.width, root.height
+
+
+        BoxLayout:
+            orientation : 'vertical'
+
+
+            Label:
+                id: QUE_WORD
+                font_size: 64
+	            text: "Enter english word"
+		        size_hint: (1, 0.4)
+
+		    Label:
+                id: POS
+                font_size: 32
+	            text: "Enter english word"
+		        size_hint: (1, 0.1)
+
+
+        BoxLayout:
+            orientation : 'horizontal'
+
+            BoxLayout:
+                orientation : 'vertical'
+
+                Button:
+                    id:LT
+                    text: 'LT'
+                    font_size: 64
+                    background_color: (1,1,1,0.8)
+                    on_release: root.answer_checking_LT()
+
+
+                Button:
+                    id:LB
+                    text: 'LB'
+                    font_size: 64
+                    #RGB - A
+                    background_color: (1,1,1,0.8)
+                    on_release: root.answer_checking_LB()
+
+
+
+            BoxLayout:
+                orientation : 'vertical'
+
+                Button:
+                    id:RT
+                    text: 'RT'
+                    font_size: 64
+                    background_color: (1,1,1,0.8)
+                    on_release: root.answer_checking_RT()
+
+
+                Button:
+                    id:RB
+                    text: 'RB'
+                    font_size: 64
+                    background_color: (1,1,1,0.8)
+                    on_release: root.answer_checking_RB()
+
+
+
+
+
+        BoxLayout:
+            orientation : 'horizontal'
+
+
+            Button:
+                text: 'Backward'
+                font_size: 64
+
+
+            Button:
+                id:FORW
+                text: 'Forward'
+                font_size: 64
+                on_release: root.forward()
+
+
+        BoxLayout:
+            orientation : 'vertical'
+
+
+            Button:
+                text: 'go back'
+                font_size: 64
+                on_release:
+                    root.back_function()
+                    app.root.current = 'main'
+                    root.manager.transition.direction = 'right'
+	
+<Dictionary>:
+    name: 'dict'
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+    Button:
+        size_hint:(1, 0.15)
+        text:'go back'
+        font_size: 32
+        on_release:
+            root.back_function()
+            app.root.current = 'main'
+            root.manager.transition.direction = 'right'
+
